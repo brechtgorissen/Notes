@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Note touchedNote = new Note();
+                touchedNote.setId(items.get(position).getId());
                 touchedNote.setTitle(items.get(position).getTitle());
                 touchedNote.setContent(items.get(position).getContent());
                 touchedNote.setCreateDate(items.get(position).getCreateDate());

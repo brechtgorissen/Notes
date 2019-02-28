@@ -2,7 +2,7 @@
     <string name="app_name">Notedroid</string>
     <string name="txt_tv_lbl_title">Titel:</string>
     <string name="txt_tv_lbl_content">Inhoud:</string>
-    <string name="txt_tv_lbl_createdate">Datum:</string>
+    <string name="txt_tv_lbl_createdate">Aangemaakt op:</string>
     <string name="txt_tv_lbl_moddate">Laatste wijziging:</string>
     <string name="txt_mi_add">Add</string>
 </resources>

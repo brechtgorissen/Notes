@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import com.example.notedroid.model.Converter;
 import com.example.notedroid.model.Note;
 import com.example.notedroid.model.NoteDataBase;
+import com.example.notedroid.recyclerutils.NoteAdapter;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -29,12 +32,21 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.mi_save){
-            String newTitle = title.getText().toString();
-            String newContent = content.getText().toString();
-            Date newCreate = Calendar.getInstance().getTime();
-            Date newMod = Calendar.getInstance().getTime();
-            Note newNote = new Note(newTitle, newContent, newCreate, newMod);
-            NoteDataBase.getInstance(context).noteDAO().insertNote(newNote);
+            Note inputNote = (Note) getIntent().getSerializableExtra("note");
+            if (inputNote != null){
+                Log.d("TEST", ""+inputNote.getId());
+                inputNote.setTitle(title.getText().toString());
+                inputNote.setContent(content.getText().toString());
+                inputNote.setModDate(new Date());
+                NoteDataBase.getInstance(context).noteDAO().updateNote(inputNote);
+            }else{
+                String newTitle = title.getText().toString();
+                String newContent = content.getText().toString();
+                Date newCreate = new Date();
+                Date newMod = new Date();
+                Note newNote = new Note(newTitle, newContent, newCreate, newMod);
+                NoteDataBase.getInstance(context).noteDAO().insertNote(newNote);
+            }
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
